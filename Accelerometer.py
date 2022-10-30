@@ -33,9 +33,14 @@ class Accelerometer:
         #time between GyroReads here?
         self.accXnorm = ACCx/math.sqrt(ACCx * ACCx + ACCy * ACCy + ACCz * ACCz)
         self.accYnorm = ACCy/math.sqrt(ACCx * ACCx + ACCy * ACCy + ACCz * ACCz)
+        
         return self.accXnorm, self.accYnorm
 
     def display_data(self):
         print(f"accX: {self.accXnorm} accY: {self.accYnorm}")
 
-
+def main():
+    ACC = Accelerometer()
+    ACC.display_data()
+    
+main()

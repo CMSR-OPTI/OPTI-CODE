@@ -19,16 +19,16 @@ class Datalog():
         self.data['accY'].append(accY)
 
         # Export table every once in a while.
-        self.counter += 1
-        if self.counter % 200 == 0:
+        if self.counter % 20 == 0:
             self.export_table(self)
+        self.counter += 1
         return True
 
     def export_table(self):
         df = pd.DataFrame(self.data)
         df['Time'] = pd.to_datetime(df['Time'])
         d4 = self.today.strftime("%b-%d-%Y-%H-%M")
-        file_name = "CMSR_log_" + d4 + ".csv"
+        file_name = "./plots/CMSR_log_" + d4 + ".csv"
         df.to_csv(file_name, encoding='utf-8', index=False)
         return True
 

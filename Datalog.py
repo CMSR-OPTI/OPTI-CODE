@@ -7,6 +7,7 @@ from threading import Timer
 class Datalog():
     def __init__(self):
         self.today = datetime.today()
+        self.counter = 1
         self.data = {'Time': [], 'Battery': [], 'accX': [], 'accY': []}
 
     def update_table(self, BSoC, accX, accY):
@@ -16,6 +17,11 @@ class Datalog():
         self.data['Battery'].append(BSoC)
         self.data['accX'].append(accX)
         self.data['accY'].append(accY)
+
+        # Export table every once in a while.
+        self.counter += 1
+        if self.counter % 200 == 0:
+            self.export_table(self)
         return True
 
     def export_table(self):

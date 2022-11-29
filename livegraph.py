@@ -74,8 +74,6 @@ def update_graph(n):
     # Update current BSoC, Acc into datalog
     LOG.update_table(BSoC, accX, accY)
 
-    LOG.export_table()
-
     data = go.Scatter(
         x = list(X),
         y = list(Y),

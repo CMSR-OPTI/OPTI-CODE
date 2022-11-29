@@ -27,7 +27,7 @@ class Datalog():
         return True
 
 
-# This function is obsolete 
+# This function is obsolete
 class Datalogtest():
 
     def __init__(self, interval=1, export=True):

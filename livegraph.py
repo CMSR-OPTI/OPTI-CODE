@@ -69,10 +69,12 @@ def update_graph(n):
 
     # fig = px.line_geo(lat=GPS.lats, lon=GPS.lons)
     # fig.update_geos(fitbounds="locations")
-    accX, accY = ACC.get_measurement() 
+    accX, accY = ACC.get_measurement()
 
     # Update current BSoC, Acc into datalog
     LOG.update_table(BSoC, accX, accY)
+
+    LOG.export_table()
 
     data = go.Scatter(
         x = list(X),

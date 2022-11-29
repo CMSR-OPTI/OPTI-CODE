@@ -2,6 +2,7 @@ import dash
 import dash_core_components as dcc
 from dash.dependencies import Output
 from dash.dependencies import Input
+from Datalog import Datalog
 import dash_html_components as html
 import plotly
 import plotly.express as px
@@ -24,6 +25,8 @@ Y = deque(maxlen = 20)
 BMS = BatteryManagement()
 # GPS = BerryGPS()
 ACC = Accelerometer()
+LOG = Datalog()
+
 
 app = dash.Dash(__name__)
 app.layout = html.Div(
@@ -66,7 +69,10 @@ def update_graph(n):
 
     # fig = px.line_geo(lat=GPS.lats, lon=GPS.lons)
     # fig.update_geos(fitbounds="locations")
-    accX, accY = ACC.get_measurement() 
+    accX, accY = ACC.get_measurement()
+
+    # Update current BSoC, Acc into datalog
+    LOG.update_table(BSoC, accX, accY)
 
     data = go.Scatter(
         x = list(X),

@@ -1,15 +1,42 @@
-import time
-# import Accelerometer
 import BatteryManagement
-import gps
 import pandas as pd
 from datetime import datetime
 from threading import Timer
 
 
 class Datalog():
+    def __init__(self):
+        self.today = datetime.today()
+        self.counter = 1
+        self.data = {'Time': [], 'Battery': [], 'accX': [], 'accY': []}
 
-    def __init__(self, interval = 1, export = True):
+    def update_table(self, BSoC, accX, accY):
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        self.data['Time'].append(current_time)
+        self.data['Battery'].append(BSoC)
+        self.data['accX'].append(accX)
+        self.data['accY'].append(accY)
+
+        # Export table every once in a while.
+        self.counter += 1
+        if self.counter % 200 == 0:
+            self.export_table(self)
+        return True
+
+    def export_table(self):
+        df = pd.DataFrame(self.data)
+        df['Time'] = pd.to_datetime(df['Time'])
+        d4 = self.today.strftime("%b-%d-%Y-%H-%M")
+        file_name = "CMSR_log_" + d4 + ".csv"
+        df.to_csv(file_name, encoding='utf-8', index=False)
+        return True
+
+
+# This function is obsolete
+class Datalogtest():
+
+    def __init__(self, interval=1, export=True):
         self._timer = None
         self.interval = interval
         self.export = export

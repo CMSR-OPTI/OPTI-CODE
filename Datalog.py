@@ -1,11 +1,16 @@
 import BatteryManagement
 import pandas as pd
+import os
 from datetime import datetime
 from threading import Timer
 
 
 class Datalog():
     def __init__(self):
+        path = './plots'
+        isExist = os.path.exists(path)
+        if not isExist:
+            os.makedirs(path)
         self.today = datetime.today()
         self.counter = 1
         self.data = {'Time': [], 'Battery': [], 'accX': [], 'accY': []}
@@ -20,7 +25,7 @@ class Datalog():
 
         # Export table every once in a while.
         if self.counter % 20 == 0:
-            self.export_table(self)
+            self.export_table()
         self.counter += 1
         return True
 

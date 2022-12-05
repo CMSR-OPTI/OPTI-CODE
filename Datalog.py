@@ -7,7 +7,7 @@ from threading import Timer
 
 class Datalog():
     def __init__(self):
-        path = './plots'
+        path = './logs'
         isExist = os.path.exists(path)
         if not isExist:
             os.makedirs(path)
@@ -33,7 +33,7 @@ class Datalog():
         df = pd.DataFrame(self.data)
         df['Time'] = pd.to_datetime(df['Time'])
         d4 = self.today.strftime("%b-%d-%Y-%H-%M")
-        file_name = "./plots/CMSR_log_" + d4 + ".csv"
+        file_name = "./logs/CMSR_log_" + d4 + ".csv"
         df.to_csv(file_name, encoding='utf-8', index=False)
         return True
 
